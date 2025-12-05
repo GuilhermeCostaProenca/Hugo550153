@@ -1,0 +1,10 @@
+br\com\exame\dao\VeiculoDAO.class
+br\com\exame\dao\ReservaDAO.class
+br\com\exame\servlet\ReservaServlet.class
+br\com\exame\model\Cliente.class
+br\com\exame\dao\ClienteDAO.class
+br\com\exame\servlet\VeiculoServlet.class
+br\com\exame\model\Veiculo.class
+br\com\exame\servlet\ClienteServlet.class
+br\com\exame\dao\Conexao.class
+br\com\exame\model\Reserva.class
