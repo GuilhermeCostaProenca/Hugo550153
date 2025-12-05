@@ -73,6 +73,11 @@
         <servlet-name>VeiculoServlet</servlet-name>
         <url-pattern>/veiculo</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>VeiculoServlet</servlet-name>
+        <url-pattern>/VeiculoServlet</url-pattern>
+    </servlet-mapping>
     
     <!-- Mapeamento do Servlet Reserva -->
     <servlet>

@@ -58,26 +58,27 @@
     </style>
 </head>
 <body>
+<% String ctx = request.getContextPath(); %>
     <div class="container">
         <h1>Sistema de Reserva de Veículos</h1>
         
         <div class="menu">
             <div class="menu-item">
                 <h2>Clientes</h2>
-                <a href="cliente/formCliente.jsp">Novo Cliente</a><br>
-                <a href="ClienteServlet?acao=listar">Listar Clientes</a>
+                <a href="<%=ctx%>/cliente/formCliente.jsp">Novo Cliente</a><br>
+                <a href="<%=ctx%>/cliente?acao=listar">Listar Clientes</a>
             </div>
             
             <div class="menu-item">
                 <h2>Veículos</h2>
-                <a href="veiculo/formVeiculo.jsp">Novo Veículo</a><br>
-                <a href="VeiculoServlet?acao=listar">Listar Veículos</a>
+                <a href="<%=ctx%>/veiculo/formVeiculo.jsp">Novo Veículo</a><br>
+                <a href="<%=ctx%>/veiculo?acao=listar">Listar Veículos</a>
             </div>
             
             <div class="menu-item">
                 <h2>Reservas</h2>
-                <a href="reserva/formReserva.jsp">Nova Reserva</a><br>
-                <a href="ReservaServlet?acao=listar">Listar Reservas</a>
+                <a href="<%=ctx%>/reserva/formReserva.jsp">Nova Reserva</a><br>
+                <a href="<%=ctx%>/reserva?acao=listar">Listar Reservas</a>
             </div>
         </div>
     </div>

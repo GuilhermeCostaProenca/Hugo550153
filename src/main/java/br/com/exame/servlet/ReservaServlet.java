@@ -1,106 +1,55 @@
 package br.com.exame.servlet;
 
-import br.com.exame.dao.ReservaDAO;
-import br.com.exame.dao.ClienteDAO;
-import br.com.exame.dao.VeiculoDAO;
-import br.com.exame.model.Reserva;
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-/**
- * Servlet responsável por processar requisições relacionadas a Reservas.
- * 
- * Rotas:
- * - GET /reserva → lista todas as reservas
- * - POST /reserva → cadastra uma nova reserva
- */
+@WebServlet(name = "ReservaServlet", urlPatterns = "/reserva")
 public class ReservaServlet extends HttpServlet {
-    
-    private static final long serialVersionUID = 1L;
-    private ReservaDAO reservaDAO;
-    private ClienteDAO clienteDAO;
-    private VeiculoDAO veiculoDAO;
-    
+
     @Override
-    public void init() throws ServletException {
-        super.init();
-        reservaDAO = new ReservaDAO();
-        clienteDAO = new ClienteDAO();
-        veiculoDAO = new VeiculoDAO();
-    }
-    
-    /**
-     * Processa requisições GET - Lista todas as reservas.
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        
-        try {
-            List<Reserva> reservas = reservaDAO.listar();
-            request.setAttribute("reservas", reservas);
-            
-            // Carrega também clientes e veículos para exibir informações completas
-            request.setAttribute("clientes", clienteDAO.listar());
-            request.setAttribute("veiculos", veiculoDAO.listar());
-            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/reserva/listaReservas.jsp");
-            dispatcher.forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao listar reservas");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String contextPath = request.getContextPath();
+        try (PrintWriter out = response.getWriter()) {
+            String acao = request.getParameter("acao");
+            out.println("<html><head><title>Reservas</title></head><body>");
+            out.println("<h1>Gestão de Reservas</h1>");
+            if ("listar".equalsIgnoreCase(acao)) {
+                out.println("<p>Listagem de reservas ainda não implementada.</p>");
+            } else {
+                out.println("<p>Nenhuma ação informada. Use ?acao=listar para visualizar a listagem.</p>");
+            }
+            out.printf("<p><a href='%s/index.jsp'>Voltar ao menu</a></p>%n", contextPath);
+            out.println("</body></html>");
         }
     }
-    
-    /**
-     * Processa requisições POST - Cadastra uma nova reserva.
-     */
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        
-        try {
-            String idClienteStr = request.getParameter("idCliente");
-            String idVeiculoStr = request.getParameter("idVeiculo");
-            
-            if (idClienteStr != null && idVeiculoStr != null && 
-                !idClienteStr.trim().isEmpty() && !idVeiculoStr.trim().isEmpty()) {
-                
-                Long idCliente = Long.parseLong(idClienteStr);
-                Long idVeiculo = Long.parseLong(idVeiculoStr);
-                
-                // Valida se cliente e veículo existem
-                if (clienteDAO.buscarPorId(idCliente) == null) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Cliente não encontrado");
-                    return;
-                }
-                
-                if (veiculoDAO.buscarPorId(idVeiculo) == null) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Veículo não encontrado");
-                    return;
-                }
-                
-                Reserva reserva = new Reserva(idCliente, idVeiculo);
-                Reserva reservaInserida = reservaDAO.inserir(reserva);
-                
-                if (reservaInserida != null) {
-                    response.sendRedirect(request.getContextPath() + "/reserva");
-                } else {
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao cadastrar reserva");
-                }
-            } else {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID do Cliente e ID do Veículo são obrigatórios");
-            }
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "IDs inválidos");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao cadastrar reserva");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        String cliente = request.getParameter("cliente");
+        String veiculo = request.getParameter("veiculo");
+        String dataRetirada = request.getParameter("dataRetirada");
+        String dataDevolucao = request.getParameter("dataDevolucao");
+
+        String contextPath = request.getContextPath();
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<html><head><title>Reserva registrada</title></head><body>");
+            out.println("<h1>Reserva registrada!</h1>");
+            out.printf("<p>Cliente: %s</p>%n", cliente);
+            out.printf("<p>Veículo: %s</p>%n", veiculo);
+            out.printf("<p>Data de retirada: %s</p>%n", dataRetirada);
+            out.printf("<p>Data de devolução: %s</p>%n", dataDevolucao);
+            out.printf("<p><a href='%s/reserva/formReserva.jsp'>Registrar nova reserva</a></p>%n", contextPath);
+            out.printf("<p><a href='%s/index.jsp'>Voltar ao menu</a></p>%n", contextPath);
+            out.println("</body></html>");
         }
     }
 }
