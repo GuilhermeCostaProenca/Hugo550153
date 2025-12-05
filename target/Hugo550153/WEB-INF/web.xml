@@ -61,6 +61,11 @@
         <servlet-name>ClienteServlet</servlet-name>
         <url-pattern>/cliente</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ClienteServlet</servlet-name>
+        <url-pattern>/ClienteServlet</url-pattern>
+    </servlet-mapping>
     
     <!-- Mapeamento do Servlet Veiculo -->
     <servlet>
@@ -89,6 +94,11 @@
     <servlet-mapping>
         <servlet-name>ReservaServlet</servlet-name>
         <url-pattern>/reserva</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ReservaServlet</servlet-name>
+        <url-pattern>/ReservaServlet</url-pattern>
     </servlet-mapping>
     
     <!-- Configuração de contexto (opcional) -->

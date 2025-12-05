@@ -3,17 +3,31 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Reserva</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 </head>
 <body>
-<h1>Registrar Reserva</h1>
-<form action="<%=request.getContextPath()%>/reserva" method="post">
-    <label>Cliente:<br><input type="text" name="cliente" required></label><br><br>
-    <label>Veículo:<br><input type="text" name="veiculo" required></label><br><br>
-    <label>Data de retirada:<br><input type="date" name="dataRetirada" required></label><br><br>
-    <label>Data de devolução:<br><input type="date" name="dataDevolucao" required></label><br><br>
-    <button type="submit">Salvar</button>
-</form>
-<p><a href="<%=request.getContextPath()%>/index.jsp">Voltar ao menu</a></p>
+    <div class="container">
+        <h1>Cadastrar Reserva</h1>
+        <form action="<%=request.getContextPath()%>/reserva" method="post">
+            <label>Cliente
+                <input type="text" name="cliente" required>
+            </label>
+            <label>Veículo
+                <input type="text" name="veiculo" required>
+            </label>
+            <label>Data de Retirada
+                <input type="date" name="dataRetirada" required>
+            </label>
+            <label>Data de Devolução
+                <input type="date" name="dataDevolucao" required>
+            </label>
+            <div class="actions">
+                <button type="submit">Salvar</button>
+                <a href="<%=request.getContextPath()%>/index.jsp" class="btn btn-back">Voltar ao menu</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

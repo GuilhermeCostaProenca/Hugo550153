@@ -104,12 +104,13 @@
     </style>
 </head>
 <body>
+    <c:set var="ctx" value="${pageContext.request.contextPath}" />
     <div class="container">
         <h1>Lista de Clientes</h1>
-        
+
         <div class="top-actions">
-            <a href="formCliente.jsp" class="btn btn-new">+ Novo Cliente</a>
-            <a href="../index.jsp" class="btn btn-back">Voltar ao Menu</a>
+            <a href="${ctx}/cliente/formCliente.jsp" class="btn btn-new">+ Novo Cliente</a>
+            <a href="${ctx}/index.jsp" class="btn btn-back">Voltar ao Menu</a>
         </div>
         
         <c:if test="${not empty clientes}">
@@ -135,9 +136,9 @@
                             <td>${cliente.telefone}</td>
                             <td>${cliente.endereco}</td>
                             <td class="actions">
-                                <a href="ClienteServlet?acao=editar&id=${cliente.id}" class="btn-edit">Editar</a>
-                                <a href="ClienteServlet?acao=excluir&id=${cliente.id}" 
-                                   class="btn-delete" 
+                                <a href="${ctx}/cliente?acao=editar&id=${cliente.id}" class="btn-edit">Editar</a>
+                                <a href="${ctx}/cliente?acao=excluir&id=${cliente.id}"
+                                   class="btn-delete"
                                    onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Excluir</a>
                             </td>
                         </tr>
