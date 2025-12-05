@@ -144,12 +144,13 @@
     </style>
 </head>
 <body>
+    <c:set var="ctx" value="${pageContext.request.contextPath}" />
     <div class="container">
         <h1>Lista de Reservas</h1>
-        
+
         <div class="top-actions">
-            <a href="formReserva.jsp" class="btn btn-new">+ Nova Reserva</a>
-            <a href="../index.jsp" class="btn btn-back">Voltar ao Menu</a>
+            <a href="${ctx}/reserva/formReserva.jsp" class="btn btn-new">+ Nova Reserva</a>
+            <a href="${ctx}/index.jsp" class="btn btn-back">Voltar ao Menu</a>
         </div>
         
         <c:if test="${not empty reservas}">
@@ -187,17 +188,17 @@
                                 </span>
                             </td>
                             <td class="actions">
-                                <a href="ReservaServlet?acao=editar&id=${reserva.id}" class="btn-action btn-edit">Editar</a>
+                                <a href="${ctx}/reserva?acao=editar&id=${reserva.id}" class="btn-action btn-edit">Editar</a>
                                 <c:if test="${reserva.status != 'Cancelada' && reserva.status != 'Finalizada'}">
-                                    <a href="ReservaServlet?acao=cancelar&id=${reserva.id}" 
-                                       class="btn-action btn-cancel" 
+                                    <a href="${ctx}/reserva?acao=cancelar&id=${reserva.id}"
+                                       class="btn-action btn-cancel"
                                        onclick="return confirm('Tem certeza que deseja cancelar esta reserva?')">Cancelar</a>
-                                    <a href="ReservaServlet?acao=finalizar&id=${reserva.id}" 
-                                       class="btn-action btn-finalize" 
+                                    <a href="${ctx}/reserva?acao=finalizar&id=${reserva.id}"
+                                       class="btn-action btn-finalize"
                                        onclick="return confirm('Tem certeza que deseja finalizar esta reserva?')">Finalizar</a>
                                 </c:if>
-                                <a href="ReservaServlet?acao=excluir&id=${reserva.id}" 
-                                   class="btn-action btn-delete" 
+                                <a href="${ctx}/reserva?acao=excluir&id=${reserva.id}"
+                                   class="btn-action btn-delete"
                                    onclick="return confirm('Tem certeza que deseja excluir esta reserva?')">Excluir</a>
                             </td>
                         </tr>

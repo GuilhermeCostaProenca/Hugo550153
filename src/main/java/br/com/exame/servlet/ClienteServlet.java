@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ClienteServlet", urlPatterns = "/cliente")
+@WebServlet(name = "ClienteServlet", urlPatterns = {"/cliente", "/ClienteServlet"})
 public class ClienteServlet extends HttpServlet {
 
     @Override
