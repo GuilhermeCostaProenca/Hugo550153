@@ -113,12 +113,13 @@
     </style>
 </head>
 <body>
+    <c:set var="ctx" value="${pageContext.request.contextPath}" />
     <div class="container">
         <h1>Lista de Veículos</h1>
-        
+
         <div class="top-actions">
-            <a href="formVeiculo.jsp" class="btn btn-new">+ Novo Veículo</a>
-            <a href="../index.jsp" class="btn btn-back">Voltar ao Menu</a>
+            <a href="${ctx}/veiculo/formVeiculo.jsp" class="btn btn-new">+ Novo Veículo</a>
+            <a href="${ctx}/index.jsp" class="btn btn-back">Voltar ao Menu</a>
         </div>
         
         <c:if test="${not empty veiculos}">
@@ -152,9 +153,9 @@
                                 </span>
                             </td>
                             <td class="actions">
-                                <a href="VeiculoServlet?acao=editar&id=${veiculo.id}" class="btn-edit">Editar</a>
-                                <a href="VeiculoServlet?acao=excluir&id=${veiculo.id}" 
-                                   class="btn-delete" 
+                                <a href="${ctx}/veiculo?acao=editar&id=${veiculo.id}" class="btn-edit">Editar</a>
+                                <a href="${ctx}/veiculo?acao=excluir&id=${veiculo.id}"
+                                   class="btn-delete"
                                    onclick="return confirm('Tem certeza que deseja excluir este veículo?')">Excluir</a>
                             </td>
                         </tr>

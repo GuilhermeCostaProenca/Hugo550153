@@ -167,6 +167,31 @@ CREATE TABLE reserva (
 - Os Servlets estão configurados com anotações @WebServlet para facilitar o mapeamento
 - O projeto está preparado para uso com Maven, mas pode ser usado sem ele
 
+## Como publicar suas alterações no GitHub
+
+Se você já fez commits locais e não está vendo as mudanças no GitHub, verifique estes pontos:
+
+1. Confirme o `remote` configurado para seu repositório:
+   ```bash
+   git remote -v
+   ```
+   Certifique-se de que `origin` aponta para a URL do seu repositório no GitHub.
+
+2. Envie o branch atual para o GitHub (substitua `work` pelo nome do seu branch, se for outro):
+   ```bash
+   git push -u origin work
+   ```
+
+3. Caso esteja trabalhando em outro branch, troque para ele antes de fazer o push:
+   ```bash
+   git checkout <nome-do-branch>
+   git push -u origin <nome-do-branch>
+   ```
+
+4. Se o push exigir autenticação, garanta que você está usando um token de acesso pessoal ou chave SSH configurada na sua conta GitHub.
+
+Seguindo esses passos, os commits locais passarão a aparecer no repositório remoto.
+
 ## Licença
 
 Este projeto foi desenvolvido para fins educacionais.

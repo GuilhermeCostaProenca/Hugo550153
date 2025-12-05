@@ -1,78 +1,53 @@
 package br.com.exame.servlet;
 
-import br.com.exame.dao.VeiculoDAO;
-import br.com.exame.model.Veiculo;
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-/**
- * Servlet responsável por processar requisições relacionadas a Veículos.
- * 
- * Rotas:
- * - GET /veiculo → lista todos os veículos
- * - POST /veiculo → cadastra um novo veículo
- */
+@WebServlet(name = "VeiculoServlet", urlPatterns = {"/veiculo", "/VeiculoServlet"})
 public class VeiculoServlet extends HttpServlet {
-    
-    private static final long serialVersionUID = 1L;
-    private VeiculoDAO veiculoDAO;
-    
+
     @Override
-    public void init() throws ServletException {
-        super.init();
-        veiculoDAO = new VeiculoDAO();
-    }
-    
-    /**
-     * Processa requisições GET - Lista todos os veículos.
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        
-        try {
-            List<Veiculo> veiculos = veiculoDAO.listar();
-            request.setAttribute("veiculos", veiculos);
-            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/veiculo/listaVeiculos.jsp");
-            dispatcher.forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao listar veículos");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String contextPath = request.getContextPath();
+        try (PrintWriter out = response.getWriter()) {
+            String acao = request.getParameter("acao");
+            out.println("<html><head><title>Veículos</title></head><body>");
+            out.println("<h1>Gestão de Veículos</h1>");
+            if ("listar".equalsIgnoreCase(acao)) {
+                out.println("<p>Listagem de veículos ainda não implementada.</p>");
+            } else {
+                out.println("<p>Nenhuma ação informada. Use ?acao=listar para visualizar a listagem.</p>");
+            }
+            out.printf("<p><a href='%s/index.jsp'>Voltar ao menu</a></p>%n", contextPath);
+            out.println("</body></html>");
         }
     }
-    
-    /**
-     * Processa requisições POST - Cadastra um novo veículo.
-     */
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        
-        try {
-            String marca = request.getParameter("marca");
-            String modelo = request.getParameter("modelo");
-            
-            if (marca != null && modelo != null && !marca.trim().isEmpty() && !modelo.trim().isEmpty()) {
-                Veiculo veiculo = new Veiculo(marca, modelo);
-                Veiculo veiculoInserido = veiculoDAO.inserir(veiculo);
-                
-                if (veiculoInserido != null) {
-                    response.sendRedirect(request.getContextPath() + "/veiculo");
-                } else {
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao cadastrar veículo");
-                }
-            } else {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Marca e Modelo são obrigatórios");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao cadastrar veículo");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        String marca = request.getParameter("marca");
+        String modelo = request.getParameter("modelo");
+        String placa = request.getParameter("placa");
+
+        String contextPath = request.getContextPath();
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<html><head><title>Veículo cadastrado</title></head><body>");
+            out.println("<h1>Veículo cadastrado com sucesso!</h1>");
+            out.printf("<p>Marca: %s</p>%n", marca);
+            out.printf("<p>Modelo: %s</p>%n", modelo);
+            out.printf("<p>Placa: %s</p>%n", placa);
+            out.printf("<p><a href='%s/veiculo/formVeiculo.jsp'>Cadastrar outro</a></p>%n", contextPath);
+            out.printf("<p><a href='%s/index.jsp'>Voltar ao menu</a></p>%n", contextPath);
+            out.println("</body></html>");
         }
     }
 }
