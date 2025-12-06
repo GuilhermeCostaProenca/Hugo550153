@@ -4,21 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novo Veículo</title>
+    <title>Novo Veiculo</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Cadastrar Veículo</h1>
+        <h1>Cadastrar Veiculo</h1>
         <form action="<%=request.getContextPath()%>/veiculo" method="post">
             <label>Marca
                 <input type="text" name="marca" required>
             </label>
             <label>Modelo
                 <input type="text" name="modelo" required>
-            </label>
-            <label>Placa
-                <input type="text" name="placa" required>
             </label>
             <div class="actions">
                 <button type="submit">Salvar</button>

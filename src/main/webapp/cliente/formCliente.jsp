@@ -14,11 +14,8 @@
             <label>Nome
                 <input type="text" name="nome" required>
             </label>
-            <label>Email
-                <input type="email" name="email" required>
-            </label>
-            <label>Telefone
-                <input type="text" name="telefone" required>
+            <label>CPF
+                <input type="text" name="cpf" required>
             </label>
             <div class="actions">
                 <button type="submit">Salvar</button>

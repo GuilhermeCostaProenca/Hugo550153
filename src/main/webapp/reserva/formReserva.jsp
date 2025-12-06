@@ -11,17 +11,11 @@
     <div class="container">
         <h1>Cadastrar Reserva</h1>
         <form action="<%=request.getContextPath()%>/reserva" method="post">
-            <label>Cliente
-                <input type="text" name="cliente" required>
+            <label>ID do Cliente
+                <input type="number" name="idCliente" required>
             </label>
-            <label>Veículo
-                <input type="text" name="veiculo" required>
-            </label>
-            <label>Data de Retirada
-                <input type="date" name="dataRetirada" required>
-            </label>
-            <label>Data de Devolução
-                <input type="date" name="dataDevolucao" required>
+            <label>ID do Veiculo
+                <input type="number" name="idVeiculo" required>
             </label>
             <div class="actions">
                 <button type="submit">Salvar</button>
